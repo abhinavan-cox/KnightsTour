@@ -26,11 +26,9 @@ export const Square = ({
             onClick={onClick}
             className={twMerge(
                 "relative w-full h-full flex items-center justify-center text-lg font-bold select-none cursor-pointer transition-colors duration-200 border border-husain-bg/10",
-                isBlack ? "bg-husain-earth text-husain-canvas" : "bg-husain-canvas text-husain-earth", // Earth & Canvas
+                isBlack ? "bg-husain-earth text-husain-canvas" : "bg-husain-canvas text-husain-earth",
                 isValidMove && !isVisited && "ring-inset ring-4 ring-husain-saffron/80 hover:bg-husain-saffron/20",
-                // isVisited: We keep the base background to preserve checkerboard. 
-                // The path line and numbers indicate visited state.
-                isCurrent && "bg-husain-crimson text-white z-10 shadow-lg shadow-husain-crimson/50" // Current is Crimson
+                isCurrent && "ring-inset ring-4 ring-husain-crimson shadow-lg shadow-husain-crimson/50"
             )}
         >
             {/* Coordinate Label (optional, could be added for corners) */}
@@ -55,10 +53,16 @@ export const Square = ({
             {isCurrent && (
                 <motion.div
                     layoutId="knight-piece"
-                    className="absolute inset-0 flex items-center justify-center text-4xl"
+                    className="absolute inset-0 flex items-center justify-center text-4xl z-20 pointer-events-none"
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    style={{ backgroundColor: 'transparent' }}
                 >
-                    ♞
+                    <span className="drop-shadow-lg" style={{
+                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))',
+                        color: 'rgb(var(--color-crimson))'
+                    }}>
+                        ♞
+                    </span>
                 </motion.div>
             )}
 

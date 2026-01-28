@@ -3,15 +3,16 @@ import { Board } from './components/Board';
 import { Controls } from './components/Controls';
 import { Stats } from './components/Stats';
 import { MoveHistory } from './components/MoveHistory';
+import { PaletteSelector } from './components/PaletteSelector';
 import { useKnightTour } from './hooks/useKnightTour';
+import { useTheme } from './hooks/useTheme';
 
 function App() {
+    useTheme(); // Apply theme based on selected palette
     const { handleSquareClick } = useKnightTour();
-    // We use a ref to prevent re-renders of the entire app, 
-    // though Zustand handles fine-grained updates in components logic anyway.
 
     return (
-        <div className="min-h-screen bg-husain-bg text-husain-canvas/90 flex flex-col md:flex-row items-center justify-center p-4 gap-8 font-sans">
+        <div className="min-h-screen bg-slate-900 text-husain-canvas/90 flex flex-col md:flex-row items-center justify-center p-4 gap-8 font-sans">
 
             {/* Left Panel: Game Board */}
             <div className="flex-shrink-0">
@@ -30,6 +31,7 @@ function App() {
             {/* Right Panel: Controls & Info */}
             <div className="flex flex-col gap-6 w-full max-w-sm">
                 <Controls />
+                <PaletteSelector />
                 <Stats />
                 <MoveHistory />
             </div>

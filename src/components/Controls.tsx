@@ -91,6 +91,20 @@ export const Controls = () => {
                     <label htmlFor="hints" className="text-sm text-husain-canvas/80 cursor-pointer">Show valid moves</label>
                 </div>
             )}
+
+            {/* Closed Tour Toggle (Auto) */}
+            {mode === 'auto' && (
+                <div className="flex items-center gap-2 mt-2">
+                    <input
+                        type="checkbox"
+                        id="closed"
+                        checked={settings.preferClosed}
+                        onChange={(e) => updateSettings({ preferClosed: e.target.checked })}
+                        className="w-4 h-4 accent-husain-saffron rounded"
+                    />
+                    <label htmlFor="closed" className="text-sm text-husain-canvas/80 cursor-pointer">Closed Tour (return to start)</label>
+                </div>
+            )}
         </div>
     );
 };

@@ -1,4 +1,5 @@
 export type Position = [number, number];
+export type PaletteName = 'rembrandt' | 'picasso' | 'ravivarma' | 'caravaggio' | 'monet';
 
 export interface Move {
     moveNumber: number;
@@ -18,6 +19,8 @@ export interface GameSettings {
     animationSpeed: number; // ms per move
     showPath: boolean;
     showHints: boolean;
+    selectedPalette: PaletteName;
+    preferClosed: boolean;
 }
 
 export interface GameState {
@@ -25,6 +28,7 @@ export interface GameState {
     board: number[][]; // -1 = unvisited, 0+ = move number
     knightPosition: Position | null;
     moveHistory: Move[];
+    autoPath: Position[] | null;
     status: 'setup' | 'playing' | 'solved' | 'stuck' | 'failed';
     stats: GameStats;
     settings: GameSettings;
@@ -32,6 +36,7 @@ export interface GameState {
     // Actions
     setMode: (mode: 'auto' | 'manual') => void;
     setStartParams: (pos: Position) => void;
+    setAutoPath: (path: Position[] | null) => void;
     resetGame: () => void;
     makeMove: (to: Position) => void;
     updateSettings: (settings: Partial<GameSettings>) => void;

@@ -52,7 +52,7 @@ export const Stats = () => {
             <div className="bg-husain-bg p-3 rounded border border-husain-earth/20">
                 <div className="text-xs text-husain-canvas/50 uppercase tracking-wider">Status</div>
                 <div className={`text-lg font-bold uppercase ${status === 'solved' ? 'text-emerald-500' :
-                    status === 'stuck' ? 'text-husain-crimson' :
+                    status === 'stuck' || status === 'failed' ? 'text-husain-crimson' :
                         status === 'playing' ? 'text-husain-saffron' : 'text-husain-canvas/50'
                     }`}>
                     {status}

@@ -9,6 +9,7 @@ export const useGameStore = create<GameState>((set) => ({
     board: createEmptyBoard(),
     knightPosition: null,
     moveHistory: [],
+    autoPath: null,
     status: 'setup',
     stats: {
         startTime: 0,
@@ -20,18 +21,21 @@ export const useGameStore = create<GameState>((set) => ({
         animationSpeed: 500,
         showPath: true,
         showHints: true,
+        selectedPalette: 'rembrandt',
+        preferClosed: false,
     },
 
     setMode: (mode) => set({ mode }),
 
-    setStartParams: (pos: Position) => set((state) => {
+    setStartParams: (pos: Position) => set(() => {
         const newBoard = createEmptyBoard();
         newBoard[pos[0]][pos[1]] = 1; // Start is move 1
 
         return {
             board: newBoard,
             knightPosition: pos,
-            status: state.mode === 'auto' ? 'playing' : 'playing', // If auto, will trigger effect
+            autoPath: null,
+            status: 'playing',
             moveHistory: [{
                 moveNumber: 1,
                 from: null,
@@ -47,10 +51,13 @@ export const useGameStore = create<GameState>((set) => ({
         };
     }),
 
+    setAutoPath: (autoPath) => set({ autoPath }),
+
     resetGame: () => set({
         board: createEmptyBoard(),
         knightPosition: null,
         moveHistory: [],
+        autoPath: null,
         status: 'setup',
         stats: {
             startTime: 0,
@@ -63,15 +70,12 @@ export const useGameStore = create<GameState>((set) => ({
     makeMove: (to: Position) => set((state) => {
         if (!state.knightPosition) return state;
 
-        // Assume validation is done before calling this for manual mode
-        // For auto mode, the algorithm calls this
-
         const moveNum = state.moveHistory.length + 1;
         const newBoard = [...state.board.map(row => [...row])];
         newBoard[to[0]][to[1]] = moveNum;
 
         const from = state.knightPosition;
-        const notation = `${toAlgebraic(from)}→${toAlgebraic(to)}`; // Simple notation
+        const notation = `${toAlgebraic(from)}→${toAlgebraic(to)}`;
 
         return {
             board: newBoard,
@@ -82,7 +86,6 @@ export const useGameStore = create<GameState>((set) => ({
                 to,
                 notation
             }],
-            // Check completion
             status: state.moveHistory.length + 1 === 64 ? 'solved' : state.status,
             stats: state.moveHistory.length + 1 === 64
                 ? { ...state.stats, endTime: Date.now() }
@@ -94,7 +97,6 @@ export const useGameStore = create<GameState>((set) => ({
         settings: { ...state.settings, ...settings }
     })),
 
-    // Low level setters for algorithms
     setBoard: (board) => set({ board }),
     setStatus: (status) => set((state) => ({
         status,

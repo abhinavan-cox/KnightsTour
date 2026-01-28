@@ -4,8 +4,17 @@
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  /* Default theme colors (Rembrandt) in RGB format */
+  --color-bg: 18 18 18;
+  --color-card: 30 30 30;
+  --color-canvas: 229 220 197;
+  --color-earth: 141 110 99;
+  --color-saffron: 255 152 0;
+  --color-crimson: 213 0 0;
+  --color-charcoal: 55 71 79;
 }
 
 body {
-  @apply bg-slate-900 text-slate-100 min-h-screen overflow-hidden;
+  @apply bg-slate-900 text-slate-100 min-h-screen;
 }
