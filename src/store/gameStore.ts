@@ -83,7 +83,10 @@ export const useGameStore = create<GameState>((set) => ({
                 notation
             }],
             // Check completion
-            status: state.moveHistory.length + 1 === 64 ? 'solved' : state.status
+            status: state.moveHistory.length + 1 === 64 ? 'solved' : state.status,
+            stats: state.moveHistory.length + 1 === 64
+                ? { ...state.stats, endTime: Date.now() }
+                : state.stats
         };
     }),
 
@@ -93,7 +96,12 @@ export const useGameStore = create<GameState>((set) => ({
 
     // Low level setters for algorithms
     setBoard: (board) => set({ board }),
-    setStatus: (status) => set({ status }),
+    setStatus: (status) => set((state) => ({
+        status,
+        stats: (status === 'stuck' || status === 'solved') && !state.stats.endTime
+            ? { ...state.stats, endTime: Date.now() }
+            : state.stats
+    })),
     setKnightPosition: (pos) => set({ knightPosition: pos }),
     addToHistory: (move: Move) => set((state) => ({ moveHistory: [...state.moveHistory, move] })),
     incrementBacktracks: () => set((state) => ({ stats: { ...state.stats, backtracks: state.stats.backtracks + 1 } })),
