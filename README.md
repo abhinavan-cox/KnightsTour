@@ -1,94 +1,48 @@
 # Knight's Tour Visualizer
 
-A browser-based application that visualizes the Knight's Tour problem with both auto-solve and manual play modes. The knight must visit all 64 squares exactly once from a user-selected starting position.
+A browser-based application that visualizes the Knight's Tour problem with both auto-solve and manual play modes.
 
-## Features
+- **Demo**: [knightstour.shalusri.com](https://knightstour.shalusri.com)
+- **Code**: [github.com/knightsri/KnightsTour](https://github.com/knightsri/KnightsTour)
 
-### Game Modes
-- **Auto-Solve Mode**: Algorithm finds solution using Warnsdorff's heuristic and animates it step-by-step
-- **Manual Mode**: Click valid squares to move the knight, with validation and optional hints
+## ✨ Features
 
-### Board Interaction
-- 8×8 chessboard with coordinate labels (a-h, 1-8)
-- Click any square to set starting position
-- Visual highlighting of valid moves (knight's L-shape pattern)
-- Move animation with configurable speed (100ms - 2000ms)
+- **Auto-Solve Mode**: Watch Warnsdorff's algorithm solve the tour in real-time.
+- **Manual Mode**: Try to visit all 64 squares yourself. Includes valid move highlighting and "stuck" detection.
+- **Visual Path Trace**: A dynamic line traces the knight's journey, making it easy to see the path taken.
+- **Move History**: Scrollable history panel tracks every jump in algebraic notation.
+- **Responsive Design**: Polished, responsive UI with glassmorphism effects that works on desktop and mobile.
+- **Dockerized**: Fully containerized setup - no local Node.js environment required.
 
-### Move Annotation
-- Sequential move numbers displayed on visited squares
-- Move history panel showing algebraic notation (e.g., "1. Nb1→c3")
-- Current position highlighted distinctly
-- Optional path trace connecting visited squares
+## 🚀 Running the App
 
-### End-Game Statistics
-- Total moves completed
-- Time elapsed
-- Success/failure status
-- Squares visited vs. remaining
-- Backtrack count (manual mode)
-- Algorithm iterations (auto mode)
+### Using Docker (Recommended)
 
-## Tech Stack
+This project is optimized for Docker. No local `node` or `npm` is needed.
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | React 18 + TypeScript |
-| Styling | Tailwind CSS |
-| Animation | Framer Motion |
-| State | Zustand |
-| Build | Vite |
-| Container | Docker + nginx |
+1.  Build and run the container:
+    ```bash
+    docker-compose up --build -d
+    ```
+2.  Open your browser to: **[http://localhost:3000](http://localhost:3000)**
 
-## Getting Started
+### Local Development (Optional)
 
-### Prerequisites
-- Node.js 20+
-- pnpm
+If you have Node.js installed and prefer to develop locally:
 
-### Development
+1.  Install dependencies:
+    ```bash
+    npm install
+    ```
+2.  Start the dev server:
+    ```bash
+    npm run dev
+    ```
 
-```bash
-# Install dependencies
-pnpm install
+## 🛠 Tech Stack
 
-# Start development server
-pnpm dev
-```
-
-### Docker
-
-```bash
-# Build and run with docker-compose
-docker-compose up --build
-
-# Or build manually
-docker build -t knights-tour .
-docker run -p 3000:80 knights-tour
-```
-
-The application will be available at `http://localhost:3000`.
-
-## Project Structure
-
-```
-src/
-├── components/     # React components (Board, Square, Knight, etc.)
-├── hooks/          # Custom hooks (useKnightTour, useAnimation)
-├── algorithms/     # Warnsdorff's heuristic and backtracking solver
-├── store/          # Zustand state management
-├── utils/          # Chess notation and validation utilities
-├── types/          # TypeScript interfaces
-├── App.tsx
-└── main.tsx
-```
-
-## Algorithm
-
-The auto-solver uses **Warnsdorff's Heuristic**:
-- From current square, move to the square with fewest onward moves
-- Tie-breaker: prefer corners/edges (fewer escape routes)
-- Achieves ~99.9% success rate without backtracking
-
-## License
-
-MIT
+*   **Frontend**: React 18, TypeScript, Vite
+*   **Styling**: Tailwind CSS
+*   **State Management**: Zustand
+*   **Animation**: Framer Motion
+*   **Deployment**: Nginx (via Docker)
