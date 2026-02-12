@@ -24,6 +24,7 @@ export const useGameStore = create<GameState>((set) => ({
         selectedPalette: 'rembrandt',
         preferClosed: false,
     },
+    isClosedTour: false,
 
     setMode: (mode) => set({ mode }),
 
@@ -64,7 +65,8 @@ export const useGameStore = create<GameState>((set) => ({
             endTime: null,
             backtracks: 0,
             algorithmSteps: 0,
-        }
+        },
+        isClosedTour: false,
     }),
 
     makeMove: (to: Position) => set((state) => {
@@ -108,4 +110,5 @@ export const useGameStore = create<GameState>((set) => ({
     addToHistory: (move: Move) => set((state) => ({ moveHistory: [...state.moveHistory, move] })),
     incrementBacktracks: () => set((state) => ({ stats: { ...state.stats, backtracks: state.stats.backtracks + 1 } })),
     incrementAlgorithmSteps: () => set((state) => ({ stats: { ...state.stats, algorithmSteps: state.stats.algorithmSteps + 1 } })),
+    setIsClosedTour: (isClosed) => set({ isClosedTour: isClosed }),
 }));

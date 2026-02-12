@@ -17,4 +17,33 @@
 
 body {
   @apply bg-slate-900 text-slate-100 min-h-screen;
+  /* iOS momentum scrolling */
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+/* Ensure proper scrolling on iOS */
+#root {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+/* iOS-friendly scrollable containers */
+.overflow-y-auto,
+.overflow-x-auto,
+.overflow-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Slow blinking animation for closed tour return line */
+@keyframes blink-slow {
+
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
 }

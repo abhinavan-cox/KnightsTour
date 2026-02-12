@@ -74,6 +74,24 @@ export const Board = ({ onSquareClick }: BoardProps) => {
                         />
                     </svg>
                 )}
+
+                {/* Return path for closed tours - blinking green line */}
+                {settings.showPath && status === 'solved' && moveHistory.length === 64 && useGameStore.getState().isClosedTour && (
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none z-10" viewBox="0 0 8 8">
+                        <line
+                            x1={moveHistory[63].to[0] + 0.5}
+                            y1={moveHistory[63].to[1] + 0.5}
+                            x2={moveHistory[0].to[0] + 0.5}
+                            y2={moveHistory[0].to[1] + 0.5}
+                            stroke="#00E676"
+                            strokeWidth="0.12"
+                            strokeLinecap="round"
+                            strokeDasharray="0.2 0.1"
+                            className="drop-shadow-lg"
+                            style={{ animation: 'blink-slow 2s ease-in-out infinite' }}
+                        />
+                    </svg>
+                )}
             </div>
         </div>
     );

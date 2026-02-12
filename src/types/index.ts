@@ -32,6 +32,7 @@ export interface GameState {
     status: 'setup' | 'playing' | 'solved' | 'stuck' | 'failed';
     stats: GameStats;
     settings: GameSettings;
+    isClosedTour: boolean; // Tracks if tour can return to start
 
     // Actions
     setMode: (mode: 'auto' | 'manual') => void;
@@ -46,4 +47,5 @@ export interface GameState {
     addToHistory: (move: Move) => void;
     incrementBacktracks: () => void;
     incrementAlgorithmSteps: () => void;
+    setIsClosedTour: (isClosed: boolean) => void;
 }

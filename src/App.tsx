@@ -37,8 +37,8 @@ function App() {
             </div>
 
 
-            {/* Footer */}
-            <div className="fixed bottom-4 right-4 flex flex-col items-end gap-2 text-xs text-slate-500 font-mono">
+            {/* Footer - responsive positioning */}
+            <div className="w-full md:fixed md:bottom-4 md:right-4 flex flex-col items-center md:items-end gap-2 text-xs text-slate-500 font-mono mt-8 md:mt-0">
                 <a
                     href="https://knightstour.shalusri.com"
                     target="_blank"

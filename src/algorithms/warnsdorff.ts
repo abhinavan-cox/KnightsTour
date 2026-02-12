@@ -80,12 +80,12 @@ export const getBestMove = (current: Position, board: number[][], startPosition?
 
 /**
  * Solve knight's tour with backtracking support
- * Returns the complete path or empty array if no solution
+ * Returns the complete path and whether it's a closed tour, or null if no solution
  */
 export const solveKnightsTour = (
     start: Position,
     preferClosed: boolean = false
-): Position[] | null => {
+): { path: Position[]; isClosed: boolean } | null => {
     const board: number[][] = Array(8).fill(null).map(() => Array(8).fill(-1));
     const path: Position[] = [start];
     board[start[0]][start[1]] = 1;
@@ -146,7 +146,9 @@ export const solveKnightsTour = (
     };
 
     if (backtrack(start, 1)) {
-        return path;
+        // Check if the completed tour is closed
+        const isClosed = canReachStart(path[path.length - 1], start, board);
+        return { path, isClosed };
     }
 
     return null;

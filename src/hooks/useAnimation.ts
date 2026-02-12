@@ -10,7 +10,8 @@ export const useAnimation = () => {
         knightPosition,
         autoPath,
         setAutoPath,
-        setStatus
+        setStatus,
+        setIsClosedTour
     } = useGameStore();
 
     const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -19,17 +20,19 @@ export const useAnimation = () => {
     useEffect(() => {
         if (status === 'playing' && mode === 'auto' && !autoPath && knightPosition) {
             import('../algorithms/warnsdorff').then(({ solveKnightsTour }) => {
-                const path = solveKnightsTour(knightPosition, settings.preferClosed);
-                if (path) {
+                const result = solveKnightsTour(knightPosition, settings.preferClosed);
+                if (result) {
                     // Path includes the start position as the first element
                     // The first move is already made by setStartParams, so we slice it
-                    setAutoPath(path.slice(1));
+                    setAutoPath(result.path.slice(1));
+                    setIsClosedTour(result.isClosed);
                 } else {
                     setStatus('failed');
+                    setIsClosedTour(false);
                 }
             });
         }
-    }, [status, mode, autoPath, knightPosition, settings.preferClosed, setAutoPath, setStatus]);
+    }, [status, mode, autoPath, knightPosition, settings.preferClosed, setAutoPath, setStatus, setIsClosedTour]);
 
     // Animation effect
     useEffect(() => {

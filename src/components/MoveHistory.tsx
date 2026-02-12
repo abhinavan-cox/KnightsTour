@@ -26,6 +26,7 @@ export const MoveHistory = () => {
             <div
                 ref={scrollRef}
                 className="h-32 overflow-y-auto pr-2 space-y-1 scrollbar-thin scrollbar-thumb-husain-charcoal scrollbar-track-husain-bg"
+                style={{ WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
             >
                 <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm font-mono">
                     {moveHistory.map((move) => (
